@@ -12,6 +12,10 @@ jobs:
           distribution: 'temurin'
       - name: Grant permission
         run: chmod +x gradlew
+      - name: Fix old repos
+        run: |
+          sed -i 's/jcenter()/mavenCentral()/g' build.gradle
+          sed -i 's/jcenter()/mavenCentral()/g' app/build.gradle || true
       - name: Build APK
         run: ./gradlew assembleDebug
       - name: Upload APK
